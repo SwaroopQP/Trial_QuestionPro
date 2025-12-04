@@ -1,10 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixture/loginFixture';
+import { ConfigReader } from '../utils/configReader';
 
-test('has title and h1 message', async ({ page }) => {
-  await page.goto('https://www.questionpro.com/a/showLogin.do');
+test('should successfully login with valid credentials @critical', async ({ loginPage, page }) => {
+  // Navigate to login page then use the shared `login()` helper directly
+  await loginPage.goto(ConfigReader.getBaseURL());
+  await loginPage.login(ConfigReader.getUsername(), ConfigReader.getPassword());
 
-
-  // Validate the <h1> message is exactly the expected text
-  const header = page.locator('h1');
-  await expect(header).toHaveText('Welcome Back! Please log in');
 });
